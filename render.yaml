@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: shl-recommender
+    env: python
+    buildCommand: pip install -r requirements.txt && python scripts/build_index.py --catalog data/shl_catalog.json --index data/shl_faiss.index --meta data/shl_faiss_meta.json
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false  # Set this manually in Render dashboard
+      - key: CATALOG_PATH
+        value: data/shl_catalog.json
+      - key: FAISS_INDEX_PATH
+        value: data/shl_faiss.index
+      - key: FAISS_META_PATH
+        value: data/shl_faiss_meta.json
+      - key: LOG_LEVEL
+        value: INFO
+    healthCheckPath: /health
