@@ -151,5 +151,6 @@ API Docs:
 ```text
 http://localhost:8000/docs
 ```
-
+## Author
+Basabdutta Konar
 
